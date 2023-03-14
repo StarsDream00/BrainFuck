@@ -44,10 +44,6 @@ public class BrainFuck
                 ++_ptr;
                 break;
             case '<':
-                if (_memory[_ptr] is default(char))
-                {
-                    _memory.RemoveAt(_ptr);
-                }
                 --_ptr;
                 break;
             case '+':
