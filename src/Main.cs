@@ -66,20 +66,18 @@ public class BrainFuck
                 if (_memory[_ptr] is not default(char))
                 {
                     _points.Push(_index - 1);
+                    break;
                 }
-                else
+                for (int deep = 1; deep > 0; ++_index)
                 {
-                    for (int deep = 1; deep > 0; ++_index)
+                    switch (_code[_index])
                     {
-                        switch (_code[_index])
-                        {
-                            case '[':
-                                deep++;
-                                break;
-                            case ']':
-                                deep--;
-                                break;
-                        }
+                        case '[':
+                            deep++;
+                            break;
+                        case ']':
+                            deep--;
+                            break;
                     }
                 }
                 break;
