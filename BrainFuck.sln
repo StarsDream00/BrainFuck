@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33417.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IronBrainFuck", "src\IronBrainFuck.csproj", "{DBA8EC67-6E15-4011-8E26-567EC5404DBD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronBrainFuck.CLI", "test\IronBrainFuck.CLI.csproj", "{64EF432C-3327-4924-8004-738480F987FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBA8EC67-6E15-4011-8E26-567EC5404DBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBA8EC67-6E15-4011-8E26-567EC5404DBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBA8EC67-6E15-4011-8E26-567EC5404DBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBA8EC67-6E15-4011-8E26-567EC5404DBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64EF432C-3327-4924-8004-738480F987FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64EF432C-3327-4924-8004-738480F987FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64EF432C-3327-4924-8004-738480F987FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64EF432C-3327-4924-8004-738480F987FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F0CC2CE6-38CE-491A-A4E0-2AABE38FD6FF}
+	EndGlobalSection
+EndGlobal
