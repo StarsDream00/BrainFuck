@@ -6,7 +6,7 @@ public class BrainFuck
 {
     private readonly List<char> _memory = new();
     private readonly Stack<int> _points = new();
-    private int _ptr = default;
+    private uint _ptr = default;
     private int _index = default;
     private readonly string _code = default;
     private readonly StringBuilder _output = new();
