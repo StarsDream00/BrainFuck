@@ -6,11 +6,23 @@ public class BrainFuck
 {
     private readonly List<char> _memory = new();
     private readonly Stack<int> _points = new();
-    private uint _ptr = default;
+    private int _ptr;
+    private int Ptr
+    {
+        get
+        {
+            if (_ptr < 0)
+            {
+                return _ptr = _memory.Count - 1;
+            }
+            return _ptr;
+        }
+        set => _ptr = value;
+    }
     private int _index = default;
     private readonly string _code = default;
     private readonly StringBuilder _output = new();
-    private Func<char> _inputFunc = () =>
+    private readonly Func<char> _inputFunc = () =>
     {
         ConsoleKeyInfo input = Console.ReadKey();
         return input.KeyChar;
@@ -28,7 +40,7 @@ public class BrainFuck
     {
         for (; _index < _code.Length; ++_index)
         {
-            if (_memory.Count <= _ptr)
+            if (_memory.Count <= Ptr)
             {
                 _memory.Add(default);
             }
@@ -41,25 +53,25 @@ public class BrainFuck
         switch (_code[_index])
         {
             case '>':
-                ++_ptr;
+                ++Ptr;
                 break;
             case '<':
-                --_ptr;
+                --Ptr;
                 break;
             case '+':
-                ++_memory[_ptr];
+                ++_memory[Ptr];
                 break;
             case '-':
-                --_memory[_ptr];
+                --_memory[Ptr];
                 break;
             case '.':
-                _output.Append(Convert.ToChar(_memory[_ptr]));
+                _output.Append(Convert.ToChar(_memory[Ptr]));
                 break;
             case ',':
-                _memory[_ptr] = _inputFunc();
+                _memory[Ptr] = _inputFunc();
                 break;
             case '[':
-                if (_memory[_ptr] is not default(char))
+                if (_memory[Ptr] is not default(char))
                 {
                     _points.Push(_index - 1);
                     break;
@@ -79,7 +91,7 @@ public class BrainFuck
                 break;
             case ']':
                 int point = _points.Pop();
-                if (_memory[_ptr] is not default(char))
+                if (_memory[Ptr] is not default(char))
                 {
                     _index = point;
                 }
