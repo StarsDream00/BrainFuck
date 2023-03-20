@@ -2,47 +2,40 @@ using System.Text;
 
 namespace IronBrainFuck;
 
-public class BrainFuck
+public class BFRuntime
 {
-    private readonly List<char> _memory = new();
-    private readonly Stack<int> _points = new();
-    private int _ptr;
-    private int Ptr
-    {
-        get
-        {
-            if (_ptr < 0)
-            {
-                return _ptr = _memory.Count - 1;
-            }
-            return _ptr;
-        }
-        set => _ptr = value;
-    }
-    private int _index = default;
-    private readonly string _code = default;
-    private readonly StringBuilder _output = new();
+    private readonly Scope _scope;
+    private string _code;
     private readonly Func<char> _inputFunc = () =>
     {
         ConsoleKeyInfo input = Console.ReadKey();
         return input.KeyChar;
     };
-    public BrainFuck(string code)
+    private int _index = default;
+    private readonly StringBuilder _output = new();
+    public BFRuntime(Scope scope, string code = default)
     {
+        _scope = scope;
         _code = code;
     }
-    public BrainFuck(string code, Func<char> inputFunc)
+    public BFRuntime(Scope scope, Func<char> inputFunc, string code = default)
     {
+        _scope = scope;
         _code = code;
         _inputFunc = inputFunc;
+    }
+    public string Run(string code)
+    {
+        _code = code;
+        return Run();
     }
     public string Run()
     {
         for (; _index < _code.Length; ++_index)
         {
-            if (_memory.Count <= Ptr)
+            if (_scope.Memory.Count <= _scope.Pointer)
             {
-                _memory.Add(default);
+                _scope.Memory.Add(default);
             }
             Process();
         }
@@ -53,27 +46,27 @@ public class BrainFuck
         switch (_code[_index])
         {
             case '>':
-                ++Ptr;
+                ++_scope.Pointer;
                 break;
             case '<':
-                --Ptr;
+                --_scope.Pointer;
                 break;
             case '+':
-                ++_memory[Ptr];
+                ++_scope.Memory[_scope.Pointer];
                 break;
             case '-':
-                --_memory[Ptr];
+                --_scope.Memory[_scope.Pointer];
                 break;
             case '.':
-                _output.Append(Convert.ToChar(_memory[Ptr]));
+                _output.Append(Convert.ToChar(_scope.Memory[_scope.Pointer]));
                 break;
             case ',':
-                _memory[Ptr] = _inputFunc();
+                _scope.Memory[_scope.Pointer] = _inputFunc();
                 break;
             case '[':
-                if (_memory[Ptr] is not default(char))
+                if (_scope.Memory[_scope.Pointer] is not default(char))
                 {
-                    _points.Push(_index - 1);
+                    _scope.Points.Push(_index - 1);
                     break;
                 }
                 for (int deep = 1; deep > 0; ++_index)
@@ -90,8 +83,8 @@ public class BrainFuck
                 }
                 break;
             case ']':
-                int point = _points.Pop();
-                if (_memory[Ptr] is not default(char))
+                int point = _scope.Points.Pop();
+                if (_scope.Memory[_scope.Pointer] is not default(char))
                 {
                     _index = point;
                 }
