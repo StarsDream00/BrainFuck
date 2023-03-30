@@ -1,8 +1,8 @@
 ﻿namespace IronBrainFuck;
 public class Scope
 {
-    internal List<char> Memory { get; init; }
-    internal Stack<int> Points { get; init; }
+    internal List<char> Memory { get; }
+    internal Stack<int> Points { get; }
     private int _pointer;
     internal int Pointer
     {
